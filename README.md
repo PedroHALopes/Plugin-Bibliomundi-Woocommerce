@@ -8,7 +8,7 @@ Nós somos a <a href="http://www.bibliomundi.com.br" target="blank">Bibliomundi<
 
 #Requerimentos
 
-<a href="https://www.prestashop.com" target="blank">Woocommerce</a> na versão 2.4 ou maior.
+<a href="https://woocommerce.com/" target="blank">Woocommerce</a> na versão 2.4 ou maior.
 
 <a href="http://php.net" target="blank">PHP</a> na versão 5.4 ou maior.
 
