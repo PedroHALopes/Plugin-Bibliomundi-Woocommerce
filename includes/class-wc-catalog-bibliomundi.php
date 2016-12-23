@@ -10,6 +10,11 @@ class WC_Catalog_BiblioMundi {
 
 	public function __construct() {
 		add_action( 'wp_ajax_bibliomundi_import_catalog', array( $this, 'ajax_import' ) );
+		add_action( 'wp_ajax_bibliomundi_import_status', array( $this, 'ajax_status' ) );
+	}
+
+	public function ajax_status() {
+		wp_send_json(json_decode(file_get_contents(dirname(__FILE__) . '/../log/import.lock')));
 	}
 
 	public function ajax_import() {
@@ -50,15 +55,39 @@ class WC_Catalog_BiblioMundi {
 		wp_send_json( $return );	
 	}
 
-	public static function import( $scope ) {		
+	public static function write_lock($lockfile, $content) {
+		$lock = fopen($lockfile, 'a');
+		ftruncate($lock, 0);
+		fwrite($lock, json_encode($content).PHP_EOL);
+		fclose($lock);
+	}
+
+	public static function import( $scope ) {
+		$result = array('status' => 'progress');					
+		$lockfile = dirname(__FILE__) . '/../log/import.lock';
+		self::write_lock($lockfile, $result);
+
 		$catalog = bbm_api()->get_catalog( $scope );
-		if ( ! is_wp_error( $catalog ) && $catalog instanceof SimpleXMLElement ) {
+		if ( ! is_wp_error( $catalog ) && $catalog instanceof SimpleXMLElement ) {			
+
+			$result['total'] = count($catalog);
+			$result['current'] = 0;
+
 			$post = new WC_Post_BiblioMundi();
 			foreach ( $catalog as $product ) {
 				$post->set_element( $product )->insert();
+				$result['current']++;
+				self::write_lock($lockfile, $result);
 			}
+
+			$result['status'] = 'complete';
+			self::write_lock($lockfile, $result);
+
 			return true;
 		}
+		$result['status'] = 'complete';
+		self::write_lock($lockfile, $result);
+
 		return $catalog;
 	}
 
