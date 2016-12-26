@@ -77,5 +77,6 @@ class WC_BiblioMundi {
 }
 
 add_action( 'plugins_loaded', array( 'WC_BiblioMundi', 'get_instance' ) );
-
+require_once 'includes/class-wc-cron-bibliomundi.php';
+new WC_Cron_Bibliomundi();
 endif;

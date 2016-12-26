@@ -98,7 +98,8 @@ class WC_API_BiblioMundi {
 						'scope'            => $scope,
 						'client_secret'    => $this->client_secret,
 						'access_token'     => $this->credentials->access_token,
-					)
+					),
+					// 'timeout' => 86400
 				);
 				$this->sandbox( $args );
 				$response = wp_safe_remote_post( $this->get_url( 'ebook/list.php' ), $args );
