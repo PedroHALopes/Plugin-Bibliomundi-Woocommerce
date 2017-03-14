@@ -69,6 +69,7 @@ class WC_Order_BiblioMundi {
 							$data['items'][] = array(
 								'bibliomundiEbookID' => get_post_meta( $product_id, 'id_ebook', true ),
 								'price'              => $product->price,
+								'currency'			 => get_post_meta( $product_id, 'currency', true ),
 							);	
 						}
 					}

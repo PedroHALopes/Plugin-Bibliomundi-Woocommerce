@@ -36,10 +36,15 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 		$this->post_data = array();
 		
 		if ( $this->get_element() ) {
+			if(isset($this->element->DescriptiveDetail->TitleDetail->TitleElement->TitleText))
+				$title = strval($this->element->DescriptiveDetail->TitleDetail->TitleElement->TitleText);
+			else
+				$title = strval($this->element->DescriptiveDetail->TitleDetail->TitleElement->TitlePrefix . ' ' . $this->element->DescriptiveDetail->TitleDetail->TitleElement->TitleWithoutPrefix);
+
 			$this->post_data = array(
 				'post_type'    => 'product',
 				'post_status'  => 'publish',
-				'post_title'   => (string) $this->element->DescriptiveDetail->TitleDetail->TitleElement->TitleText,
+				'post_title'   => $title,
 				'post_content' => (string) $this->element->CollateralDetail->TextContent->Text->p,
 			);
 		}
@@ -49,9 +54,32 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 
 	protected function get_post_metas() {
 		$this->post_metas = array();
-		
+
 		if( $this->get_element() ) {
-			$price = (float) $this->element->ProductSupply->SupplyDetail->Price->PriceAmount;
+
+			$prices = array();
+			if(is_object($this->element->ProductSupply->SupplyDetail->Price))//is object
+			{
+				foreach ($this->element->ProductSupply->SupplyDetail->Price as $xmlPrice) 
+				{
+					$prices[strval($xmlPrice->CurrencyCode)] = strval($xmlPrice->PriceAmount);
+				}
+			}
+			else
+			{
+				$prices[strval($this->element->ProductSupply->SupplyDetail->Price->CurrencyCode)] = strval($this->element->ProductSupply->SupplyDetail->Price->PriceAmount);
+			}
+
+			$currency = get_option('woocommerce_currency');
+			if(in_array($currency, array_keys($bbmPrice))){
+	        	$price = (float)$prices[$currency];
+	        	$iso_code = $currency;
+	        }else{
+	        	$price = (float)$prices['BRL'];
+	        	$iso_code = 'BRL';
+	        }
+
+			// $price = (float) $this->element->ProductSupply->SupplyDetail->Price->PriceAmount;
 			$visibility = (int) $this->element->ProductSupply->SupplyDetail->ProductAvailability;
 
 			$url_file = 'http://www.bibliomundi.com/ebook.epub';
@@ -66,6 +94,7 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 				'id_ebook'            => (int) $this->element->ProductIdentifier->IDValue,
 				'subtitle'            => (string) $this->element->DescriptiveDetail->TitleDetail->TitleElement->Subtitle,
 				'edition_number'      => (string) $this->element->DescriptiveDetail->EditionNumber,
+				'iso_code'			  => $iso_code,
 				'_visibility'         => self::$VISIBILITY_STATUS == $visibility ? 'visible' : 'hidden',
 				'_manage_stock'       => 'no',
 				'_stock_status'       => 'instock',
@@ -75,6 +104,7 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 				'_virtual'            => 'yes',
 				'_downloadable'       => 'yes',
 				'_downloadable_files' => $downloadable_files,
+				'currency'			  => $iso_code,
 			);
 
 			if ( self::$ID_TYPE_ISBN === ( int ) $this->element->ProductIdentifier[1]->ProductIDType ) {
