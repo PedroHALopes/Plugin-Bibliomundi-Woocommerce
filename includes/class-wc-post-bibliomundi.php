@@ -14,6 +14,7 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 
 	private $post_metas;
 	private $post_data;
+	private $product_attributes;
 
 	public static function get_instance() {
 		if ( is_null( self::$INSTANCE ) ) {
@@ -110,6 +111,18 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 			if ( self::$ID_TYPE_ISBN === ( int ) $this->element->ProductIdentifier[1]->ProductIDType ) {
 				$this->post_metas['isbn'] = (string) $this->element->ProductIdentifier[1]->IDValue;
 			}
+
+			$this->product_attributes = array(
+				'currency'			  => $this->post_metas['currency'],
+				'edition_number'      => $this->post_metas['edition_number'],
+				'id_bibliomundi'      => $this->post_metas['id_bibliomundi'],
+				'id_ebook'            => $this->post_metas['id_ebook'],
+				'isbn'            	  => $this->post_metas['isbn'],
+				'iso_code'			  => $this->post_metas['iso_code'],
+				'notification_type'   => $this->post_metas['notification_type'],
+				'publishers'          => $this->post_metas['publishers'],
+				'subtitle'            => $this->post_metas['subtitle']
+			);
 		}
 
 		return apply_filters( 'woocommerce_post_metas_bibliomundi', $this->post_metas );
@@ -158,6 +171,26 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 			foreach( $this->post_metas as $key => $value ) {
 				update_post_meta( $post_id, $key, $value );
 			}
+		}
+
+		if ( $this->product_attributes ) {
+
+			$product_atts = array();
+
+		   	// Loop through the attributes array
+		   	foreach ($this->product_attributes as $name => $value) {
+		       	$product_atts[] = array (
+		           	'name' => htmlspecialchars( stripslashes( $name ) ), // set attribute name
+		           	'value' => $value, // set attribute value
+		           	'position' => 1,
+		           	'is_visible' => 1,
+		           	'is_variation' => 1,
+		           	'is_taxonomy' => 0
+		       	);
+		   	}
+
+		   	// Now update the post with its new attributes
+		   	update_post_meta($post_id, '_product_attributes', $product_atts);
 		}
 	}
 
