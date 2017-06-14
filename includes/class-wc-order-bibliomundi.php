@@ -64,14 +64,18 @@ class WC_Order_BiblioMundi {
 								break;
 							}
 						}
-						if ( $product_id ) {
-							$product = new WC_Product( $product_id );
-							$data['items'][] = array(
-								'bibliomundiEbookID' => get_post_meta( $product_id, 'id_ebook', true ),
-								'price'              => $product->price,
-								'currency'			 => get_post_meta( $product_id, 'currency', true ),
-							);	
-						}
+					}
+					elseif ( $item instanceof WC_Order_Item_Product ) {	// Woocemmerce 3.x.x
+						$product_id = $item->get_product_id();
+					}
+					
+					if ( $product_id ) {
+						$product = new WC_Product( $product_id );
+						$data['items'][] = array(
+							'bibliomundiEbookID' => get_post_meta( $product_id, 'id_ebook', true ),
+							'price'              => $product->price,
+							'currency'			 => get_post_meta( $product_id, 'currency', true ),
+						);	
 					}
 				}	
 				bbm_api()->checkout_order( $data );

@@ -175,14 +175,24 @@ class WC_API_BiblioMundi {
 					),
 					'body' => $default + $data 
 				);				
-				$this->sandbox( $args );								
+				$this->sandbox( $args );
+
+				add_filter( 'http_request_timeout', array( $this, 'bm_add_http_request_timeout') );
+
 				$response = wp_safe_remote_post( $this->get_url( 'ebook/get.php' ), $args );
+
+				remove_filter( 'http_request_timeout', array( $this, 'bm_add_http_request_timeout') );
+
 				if ( ! is_wp_error( $response ) && 200 == $response['response']['code'] ) {
 					return self::parse( wp_remote_retrieve_body( $response ) );
 				}
 			}
 		}
 		return false;
+	}
+
+	public function bm_add_http_request_timeout() {
+		return 3600;	// 1h
 	}
 
 	public function download( $data ) {
