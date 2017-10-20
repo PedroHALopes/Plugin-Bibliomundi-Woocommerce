@@ -4,7 +4,7 @@
  * Description: Integração com a BiblioMundi
  * Author: Aires Gonçalves
  * Author URI: http://github.com/airesvsg
- * Version: 1.0.1
+ * Version: 1.0.0
  * Plugin URI: http://github.com/airesvsg/bibliomundi
  * Text Domain: woocommerce-bibliomundi
  */
@@ -14,11 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+define("BBL_DIR", dirname(__FILE__) . '/');
+define("BBL_INCLUDE_DIR", BBL_DIR . 'includes/');
+
 if ( ! class_exists( 'WC_BiblioMundi' ) ) :
 
 class WC_BiblioMundi {
 
-	const VERSION = '1.0.1';
+	const VERSION = '1.0.0';
 
 	private static $instance = null;
 

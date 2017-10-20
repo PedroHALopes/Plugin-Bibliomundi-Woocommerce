@@ -52,7 +52,7 @@ class WC_Order_BiblioMundi {
 				'customerGender'               => strtolower( substr( $order->billing_sex, 0, 1 ) ),
 				'customerBirthday'             => date( 'Y/m/d', strtotime( $order->billing_birthdate ) ),
 				'customerCountry'              => $order->billing_country,
-				'customerState'                => $order->billing_state,
+				'customerState'                => !empty($order->billing_state) ? $order->billing_state : 'RJ',
 			);
 			$items = $order->get_items();
 			if ( is_array( $items ) && sizeof( $items ) > 0 ) {

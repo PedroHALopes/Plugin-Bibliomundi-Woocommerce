@@ -55,7 +55,8 @@ class WC_Catalog_BiblioMundi {
 		wp_send_json( $return );	
 	}
 
-	public static function write_lock($lockfile, $content) {
+	public static function write_lock($lockfile = null, $content) {
+		$lockfile = ($lockfile) ? $lockfile : dirname(__FILE__) . '/../log/import.lock';
 		$lock = fopen($lockfile, 'a');
 		ftruncate($lock, 0);
 		fwrite($lock, json_encode($content).PHP_EOL);
@@ -68,24 +69,27 @@ class WC_Catalog_BiblioMundi {
 		self::write_lock($lockfile, $result);
 
 		$catalog = bbm_api()->get_catalog( $scope );
-		if ( ! is_wp_error( $catalog ) && $catalog instanceof SimpleXMLElement ) {			
+		if ( ! is_wp_error( $catalog ) && $catalog instanceof SimpleXMLElement ) {
 
 			$result['total'] = count($catalog);
 			$result['current'] = 0;
 
-			$post = new WC_Post_BiblioMundi();
+			$disAllowIncrement = false;
+			$post = new WC_Post_BiblioMundi($disAllowIncrement);			
 			foreach ( $catalog as $product ) {
-				$post->set_element( $product )->insert();
-				$result['current']++;
+				$post->set_element( $product )->insert();			
+				
+				if (!$disAllowIncrement) {
+				    $result['current'] = ($result['current'] >= $result['total']) ? $result['total'] : $result['current'] + 1;				    
+				}
 				self::write_lock($lockfile, $result);
-			}
-
-			$result['status'] = 'complete';
-			self::write_lock($lockfile, $result);
+			}			
 
 			return true;
 		}
-		$result['status'] = 'complete';
+		if (isset($result['current']) && $result['current'] == $result['total']) {
+		    $result['status'] = 'complete';		    
+		}
 		self::write_lock($lockfile, $result);
 
 		return $catalog;

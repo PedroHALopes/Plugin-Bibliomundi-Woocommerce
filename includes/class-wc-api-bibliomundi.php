@@ -76,7 +76,11 @@ class WC_API_BiblioMundi {
 
 	private static function parse( $data ) {
 		if ( $data ) {
-			return json_decode( $data );
+		    $return = json_decode( $data );
+		    if ((json_last_error() == JSON_ERROR_NONE)) {
+		        return $return;
+            }
+			return $data;
 		}
 		return false;
 	}
@@ -102,7 +106,9 @@ class WC_API_BiblioMundi {
 					// 'timeout' => 86400
 				);
 				$this->sandbox( $args );
+                add_filter( 'http_request_timeout', array( $this, 'bm_add_http_request_timeout') );
 				$response = wp_safe_remote_post( $this->get_url( 'ebook/list.php' ), $args );
+                remove_filter( 'http_request_timeout', array( $this, 'bm_add_http_request_timeout') );
 				$this->catalog = is_wp_error( $response );
 				if ( ! $this->catalog ) {
 					$data = self::parse( wp_remote_retrieve_body( $response ) );
@@ -198,13 +204,14 @@ class WC_API_BiblioMundi {
 	public function download( $data ) {
 		$response = $this->validate_download( $data );
 		if ( $response ) {			
-			$msg = $response->message;
-			if ( strpos( $msg, "urn:uuid:" ) == -1 ) {
+			$msg = !empty($response->message)? $response->message : $response;
+			if ( !strpos( $msg, "urn:uuid:" ) ) {
 			    header( 'Content-Type: application/epub+zip' );
 			    header( 'Content-Disposition: attachment; filename="' . md5( time() ) . '.epub"' );
 			} else {
 			    header( 'Content-Type: application/vnd.adobe.adept+xml' );
 			    header( 'Content-Disposition: attachment; filename="' . md5( time() ) . '.acsm"' );
+                $msg = utf8_decode($msg);
 			}
 			header( 'Content-Transfer-Encoding: binary' );
 			header( 'Expires: 0' );
@@ -214,7 +221,6 @@ class WC_API_BiblioMundi {
 		}
 		wp_die( __( 'Invalid download!', 'woocomerce-bibliomundi' ) );
 	}
-
 }
 
 if ( ! function_exists( 'bbm_api' ) ) {

@@ -15,13 +15,19 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 	private $post_metas;
 	private $post_data;
 	private $product_attributes;
-
+	private $disAllowIncrement;
 	public static function get_instance() {
 		if ( is_null( self::$INSTANCE ) ) {
 			self::$INSTANCE = new self;
 		}
 		return self::$INSTANCE;
 	}
+
+	public function __construct(&$disAllowIncrement) {
+	    parent::__construct();
+	    $this->disAllowIncrement = &$disAllowIncrement;
+	}
+
 
 	protected function exists( $id = null ) {
 		if ( ! $id && array_key_exists( 'id_ebook', $this->post_metas ) ) {
@@ -72,13 +78,13 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 			}
 
 			$currency = get_option('woocommerce_currency');
-			if(in_array($currency, array_keys($bbmPrice))){
-	        	$price = (float)$prices[$currency];
-	        	$iso_code = $currency;
-	        }else{
-	        	$price = (float)$prices['BRL'];
-	        	$iso_code = 'BRL';
-	        }
+			if(in_array($currency, array_keys($prices))){
+			    $price = (float)$prices[$currency];
+			    $iso_code = $currency;
+			}else{
+			    $price = (float)$prices['BRL'];
+			    $iso_code = 'BRL';
+			}
 
 			// $price = (float) $this->element->ProductSupply->SupplyDetail->Price->PriceAmount;
 			$visibility = (int) $this->element->ProductSupply->SupplyDetail->ProductAvailability;
@@ -139,6 +145,7 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 		$post_id = $this->exists();
 		if ( ! $insert && $post_id ) {
 			wp_update_post( array( 'ID' => $post_id, 'post_status' => 'trash' ) );
+			$this->disAllowIncrement = false;
 		} elseif ( $insert && ! empty( $this->post_data ) && ! empty( $this->post_metas ) ) {
 			if ( $post_id ) {
 				$this->post_data['ID'] = $post_id;
@@ -148,15 +155,18 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 						break;
 					case WC_Notification_Type_BiblioMundi::DELETE:
 						$insert = false;
+					    $this->disAllowIncrement = false;
 						$this->post_data['post_status'] = 'trash';
 						wp_update_post( $this->post_data );
 						break;
-				}
+				}				
 			} else {
 				$post_id = wp_insert_post( $this->post_data, true );
+				
 			}
 
 			if ( $insert && $post_id ) {
+                $this->disAllowIncrement = true;
 				$this->insert_metas( $post_id );
 				$this->insert_thumbnail( $post_id );
 				$this->insert_categories( $post_id );
@@ -197,7 +207,14 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 	protected function insert_thumbnail( $post_id ) {
 		if ( $this->element && $this->post_data ) {
 			$file = (string) $this->element->CollateralDetail->SupportingResource->ResourceVersion->ResourceLink;
-			return WC_Media_BiblioMundi::insert( $post_id, $file, $this->post_data['post_title'] );
+			//return WC_Media_BiblioMundi::insert( $post_id, $file, $this->post_data['post_title'] );
+
+			$cmd = "php ".BBL_INCLUDE_DIR."downloadImage.php " . $post_id . " \"" . $this->post_data['post_title'] . "\" \"" . $file . "\" &";
+			if (substr(php_uname(), 0, 7) == "Windows") {
+			    pclose(popen("start ". $cmd, "r"));
+			} else {
+			    pclose(popen($cmd, "r"));
+			}
 		}
 	}
 
