@@ -45,6 +45,11 @@ class WC_BiblioMundi {
 	private function hooks() {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_settings_page' ) );
+
+		// Bibliomundi single product page
+        add_action( 'woocommerce_single_product_summary', array($this, 'bibliomundi_template_subtitle'), 6 );
+        add_action( 'woocommerce_single_product_summary', array($this, 'bibliomundi_template_contributor'), 11 );
+        add_action( 'woocommerce_single_product_summary', array($this, 'bibliomundi_template_collateraldetail'), 11 );
 	}
 
 	public function load_plugin_textdomain() {
@@ -77,6 +82,33 @@ class WC_BiblioMundi {
 		echo '<div class="error"><p>' . sprintf( __( 'WooCommerce BiblioMundi depends on %s to work!', 'woocommerce-bibliomundi' ), '<a href="http://wordpress.org/extend/plugins/woocommerce/">' . __( 'WooCommerce', 'woocommerce-bibliomundi' ) . '</a>' ) . '</p></div>';
 	}
 
+	public function bibliomundi_template_subtitle ()
+    {
+        echo "<p class='subtitle'>".$this->_getProductMetas('subtitle')."</p>";
+    }
+    public function bibliomundi_template_contributor ()
+    {
+        echo "<p class='contributor'>" .$this->_getProductMetas('contributor') ."</p>";
+    }
+    public function bibliomundi_template_collateraldetail ()
+    {
+        global $product;
+        //echo "<p class='collateral'>".$product->post->post_content."</p>";
+    }
+    private function _getProductMetas($meta_name)
+    {
+        global $product;
+        $meta_value = '';
+        $post_id = $product->post->ID;
+        $post_metas = get_post_meta($post_id, '_product_attributes', 'true');
+        foreach ($post_metas as $meta) {
+            if ($meta['name'] == $meta_name) {
+                $meta_value = $meta['value'];
+                break;
+            }
+        }
+        return $meta_value;
+    }
 }
 
 add_action( 'plugins_loaded', array( 'WC_BiblioMundi', 'get_instance' ) );

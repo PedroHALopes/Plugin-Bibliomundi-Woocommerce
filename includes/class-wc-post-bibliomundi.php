@@ -16,6 +16,10 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 	private $post_data;
 	private $product_attributes;
 	private $disAllowIncrement;
+	private $visible_attributes = array('language', 'extent', 'publishers', 'epub_technical_protection');
+    private $attributes_name = array('epub_technical_protection' => 'DRM');
+    private $ebook_term_id;
+
 	public static function get_instance() {
 		if ( is_null( self::$INSTANCE ) ) {
 			self::$INSTANCE = new self;
@@ -52,7 +56,7 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 				'post_type'    => 'product',
 				'post_status'  => 'publish',
 				'post_title'   => $title,
-				'post_content' => (string) $this->element->CollateralDetail->TextContent->Text->p,
+				'post_content' => (string) $this->element->CollateralDetail->TextContent->Text,
 			);
 		}
 
@@ -95,6 +99,17 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 				'file' => $url_file,
 			);
 
+            switch ((string)$this->element->DescriptiveDetail->ePubTechnicalProtection) {
+                case '01' :
+                    $epub_technical_protection = 'Social DRM';
+                    break;
+                case '02' :
+                    $epub_technical_protection = 'Adobe DRM';
+                    break;
+                default:
+                    $epub_technical_protection = 'No DRM';
+
+            }
 			$this->post_metas = array(
 				'notification_type'   => (int) $this->element->NotificationType,
 				'id_bibliomundi'      => (int) $this->element->ProductIdentifier->ProductIDType,
@@ -112,6 +127,11 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 				'_downloadable'       => 'yes',
 				'_downloadable_files' => $downloadable_files,
 				'currency'			  => $iso_code,
+                'contributor'         => (string)$this->element->DescriptiveDetail->Contributor->PersonName,
+                'language'            => (string)$this->element->DescriptiveDetail->Language->LanguageCode,
+                'extent'              => (int)$this->element->DescriptiveDetail->Extent->ExtentValue,
+                'subject'             => (string)$this->element->DescriptiveDetail->Subject->MainSubject,
+                'epub_technical_protection'              => $epub_technical_protection,
 			);
 
 			if ( self::$ID_TYPE_ISBN === ( int ) $this->element->ProductIdentifier[1]->ProductIDType ) {
@@ -124,10 +144,15 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 				'id_bibliomundi'      => $this->post_metas['id_bibliomundi'],
 				'id_ebook'            => $this->post_metas['id_ebook'],
 				'isbn'            	  => $this->post_metas['isbn'],
+                'contributor'         => $this->post_metas['contributor'],
 				'iso_code'			  => $this->post_metas['iso_code'],
 				'notification_type'   => $this->post_metas['notification_type'],
 				'publishers'          => $this->post_metas['publishers'],
-				'subtitle'            => $this->post_metas['subtitle']
+				'subtitle'            => $this->post_metas['subtitle'],
+				'language'            => $this->post_metas['language'],
+				'extent'            => $this->post_metas['extent'],
+				'subject'            => $this->post_metas['extent'],
+				'epub_technical_protection'            => $this->post_metas['epub_technical_protection'],
 			);
 		}
 
@@ -189,11 +214,17 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 
 		   	// Loop through the attributes array
 		   	foreach ($this->product_attributes as $name => $value) {
+		   	    $is_visible = 0;
+		   	    if (in_array(htmlspecialchars( stripslashes( $name ) ), $this->visible_attributes)) {
+                    $is_visible = 1;
+                }
+                $name = htmlspecialchars( stripslashes( $name ) );
+                $name = !empty($this->attributes_name[$name]) ? $this->attributes_name[$name] : $name;
 		       	$product_atts[] = array (
-		           	'name' => htmlspecialchars( stripslashes( $name ) ), // set attribute name
+		           	'name' => $name, // set attribute name
 		           	'value' => $value, // set attribute value
 		           	'position' => 1,
-		           	'is_visible' => 1,
+		           	'is_visible' => $is_visible,
 		           	'is_variation' => 1,
 		           	'is_taxonomy' => 0
 		       	);
@@ -224,11 +255,15 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 			foreach( $subject as $s ) {
 				$identifier = (string) $s->SubjectSchemeIdentifier;
 				$code       = (string) $s->SubjectCode;
-				WC_Category_BiblioMundi::add_relationship( $post_id, $code, $identifier );
+				WC_Category_BiblioMundi::add_relationship( $post_id, $code, $identifier, 'product_cat', $this->ebook_term_id);
 			}
 		}
 	}
 
+	public function set_ebook_term_id($term_id = 0)
+    {
+        $this->ebook_term_id = $term_id;
+    }
 }
 
 endif;

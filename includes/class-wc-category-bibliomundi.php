@@ -29,11 +29,15 @@ class WC_Category_BiblioMundi {
 		return false;
 	}
 
-	protected static function insert( $code, $type, $taxonomy ) {
+	protected static function insert( $code, $type, $taxonomy, $ebook_term_id = 0) {
 		$category = self::exists( $code, $type );
-
+        $arg = array();
 		if ( $category ) {
-			$term = wp_insert_term( $category, $taxonomy );
+		    if ($ebook_term_id) {
+		        $arg['parent'] = $ebook_term_id;
+            }
+
+			$term = wp_insert_term( $category, $taxonomy, $arg );
 			if ( is_wp_error( $term ) && isset( $term->error_data ) ) {
 				return $term->error_data['term_exists'];
 			} else {
@@ -44,8 +48,9 @@ class WC_Category_BiblioMundi {
 		return false;
 	}
 
-	public static function add_relationship( $post_id, $code, $type, $taxonomy = 'product_cat' ) {
-		$term_id = self::insert( $code, $type, $taxonomy );
+	public static function add_relationship( $post_id, $code, $type, $taxonomy = 'product_cat', $ebook_term_id = 0) {
+
+		$term_id = self::insert( $code, $type, $taxonomy, $ebook_term_id);
 
 		if ( $term_id ) {
 			return wp_set_post_terms( $post_id, array( $term_id ), $taxonomy );

@@ -75,7 +75,17 @@ class WC_Catalog_BiblioMundi {
 			$result['current'] = 0;
 
 			$disAllowIncrement = false;
-			$post = new WC_Post_BiblioMundi($disAllowIncrement);			
+			$post = new WC_Post_BiblioMundi($disAllowIncrement);
+            // insert all items to ebook category
+            $ebook_term = get_term_by('name', 'ebooks', 'product_cat');
+            if(!empty($ebook_term)) {
+                $ebook_term_id = $ebook_term->term_id;
+            } else {
+                $ebook_term = wp_insert_term( 'eBooks', 'product_cat' );
+                $ebook_term_id = $ebook_term['term_id'];
+            }
+
+            $post->set_ebook_term_id($ebook_term_id);
 			foreach ( $catalog as $product ) {
 				$post->set_element( $product )->insert();			
 				
@@ -88,7 +98,7 @@ class WC_Catalog_BiblioMundi {
 			return true;
 		}
 		if (isset($result['current']) && $result['current'] == $result['total']) {
-		    $result['status'] = 'complete';		    
+		    $result['status'] = 'complete';
 		}
 		self::write_lock($lockfile, $result);
 
