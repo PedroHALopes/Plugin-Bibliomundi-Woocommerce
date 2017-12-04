@@ -57,10 +57,15 @@ class WC_Catalog_BiblioMundi {
 
 	public static function write_lock($lockfile = null, $content) {
 		$lockfile = ($lockfile) ? $lockfile : dirname(__FILE__) . '/../log/import.lock';
-		$lock = fopen($lockfile, 'a');
-		ftruncate($lock, 0);
-		fwrite($lock, json_encode($content).PHP_EOL);
-		fclose($lock);
+		$lock = fopen($lockfile, 'w');
+		//ftruncate($lock, 0);
+        if (flock($lock, LOCK_EX)) {
+            ftruncate($lock, 0);
+            fwrite($lock, json_encode($content).PHP_EOL);
+            fflush($lock);
+            flock($lock, LOCK_UN);
+        }
+        fclose($lock);
 	}
 
 	public static function import( $scope ) {
@@ -86,25 +91,26 @@ class WC_Catalog_BiblioMundi {
             }
 
             $post->set_ebook_term_id($ebook_term_id);
-			foreach ( $catalog as $product ) {
-				$post->set_element( $product )->insert();			
-				
-				if (!$disAllowIncrement) {
-				    $result['current'] = ($result['current'] >= $result['total']) ? $result['total'] : $result['current'] + 1;				    
-				}
-				self::write_lock($lockfile, $result);
-			}			
+            $post->set_total_products($result['total']);
 
-			return true;
+			foreach ( $catalog as $product ) {
+                if (!$disAllowIncrement) {
+                    $resultCurrent = file_get_contents(dirname(__FILE__).'/../log/import.lock');
+                    $resultCurrent = json_decode($resultCurrent, true);
+                    $result['current'] = ($resultCurrent['current'] >= $result['total']) ? $result['total'] : $resultCurrent['current'] + 1;
+
+                    self::write_lock($lockfile, $result);
+                }
+			    $post->set_element( $product )->insert();
+			}
 		}
 		if (isset($result['current']) && $result['current'] == $result['total']) {
 		    $result['status'] = 'complete';
+            self::write_lock($lockfile, $result);
 		}
-		self::write_lock($lockfile, $result);
 
 		return $catalog;
 	}
-
 }
 
 return new WC_Catalog_BiblioMundi;

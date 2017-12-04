@@ -18,7 +18,7 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 	private $disAllowIncrement;
 	private $visible_attributes = array('language', 'extent', 'publishers', 'epub_technical_protection');
     private $attributes_name = array('epub_technical_protection' => 'DRM');
-    private $ebook_term_id;
+    private $ebook_term_id, $total_products;
 
 	public static function get_instance() {
 		if ( is_null( self::$INSTANCE ) ) {
@@ -240,7 +240,7 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 			$file = (string) $this->element->CollateralDetail->SupportingResource->ResourceVersion->ResourceLink;
 			//return WC_Media_BiblioMundi::insert( $post_id, $file, $this->post_data['post_title'] );
 
-			$cmd = "php ".BBL_INCLUDE_DIR."downloadImage.php " . $post_id . " \"" . $this->post_data['post_title'] . "\" \"" . $file . "\" &";
+			$cmd = "php " . BBL_INCLUDE_DIR . "downloadImage.php " . $post_id . " \"" . $this->post_data['post_title'] . "\" \"" . $file . "\" ". $this->total_products ." &";
 			if (substr(php_uname(), 0, 7) == "Windows") {
 			    pclose(popen("start ". $cmd, "r"));
 			} else {
@@ -263,6 +263,11 @@ class WC_Post_BiblioMundi extends WC_Base_BiblioMundi {
 	public function set_ebook_term_id($term_id = 0)
     {
         $this->ebook_term_id = $term_id;
+    }
+
+    public function set_total_products($total)
+    {
+        $this->total_products = $total;
     }
 }
 
