@@ -60,6 +60,12 @@ class WC_Settings_BiblioMundi extends WC_Settings_Page {
 					'maxlength' => 40,
 				),
 			),
+            array(
+                'type'    => 'checkbox',
+                'id'      => '_bibliomundi_ebook_cat',
+                'name'    => __( 'Add ebook category', 'woocommerce-bibliomundi' ),
+                'default' => 'no',
+            ),
 			array( 
 				'type' => 'sectionend', 
 				'id'   => $this->id . '_recipient_options_credentials' ,
@@ -116,6 +122,7 @@ class WC_Settings_BiblioMundi extends WC_Settings_Page {
 					<?php wp_nonce_field( 'bbm_nonce', 'bbm-nonce' ); ?>
 					<a href="javascript:;" class="button bibliomundi-button complete"><?php _e( 'Import', 'woocommerce-bibliomundi' ); ?></a>
 					<a href="javascript:;" class="button bibliomundi-button updates"><?php _e( 'Update', 'woocommerce-bibliomundi' ); ?></a>
+                    <a href="javascript:;" class="button bibliomundi-button remove"><?php _e( 'Remove all ebooks', 'woocommerce-bibliomundi' ); ?></a>
 					<div class="bibliomundi-alert"></div>
 				</fieldset>
 			</td>

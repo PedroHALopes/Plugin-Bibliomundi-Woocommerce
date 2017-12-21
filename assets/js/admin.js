@@ -32,44 +32,57 @@
 		var _this   = $( this );
 		var buttons = $( '.bibliomundi-button' );
 		var nonce   = $( '#bbm-nonce' ).val();
-		var scope   = _this.hasClass( 'complete' ) ? 'complete' : 'updates';
+		var scope = '';
+		if (_this.hasClass( 'remove' )) {
+			scope = 'remove';
+		} else {
+            scope =_this.hasClass( 'complete' ) ? 'complete' : 'updates';
+		}
+		var action = (scope === 'remove') ? 'bibliomundi_remove_products' : 'bibliomundi_import_catalog';
 		var alert   = _this.parent().find('.bibliomundi-alert');
-		
-		if( ! buttons.hasClass( 'disabled' ) ) {
-			buttons.removeClass( 'loading' )
-					.addClass( 'disabled' );
-			
-			_this.addClass( 'loading' );
+		var confirm = (scope === 'remove') ? window.confirm('Are you sure?') : true;
+		if (confirm) {
+            if (!buttons.hasClass('disabled')) {
+                buttons.removeClass('loading')
+                    .addClass('disabled');
 
-			clearTimeout( timeout );
-			alert.removeClass('error updated').empty();
+                _this.addClass('loading');
 
-			var data = {
-				'action' 	: 'bibliomundi_import_catalog',
-				'security' 	: nonce,
-				'scope' 	: scope,
-			};
+                clearTimeout(timeout);
+                alert.removeClass('error updated').empty();
 
-			$.ajax({
-				type: "POST",
-				url: ajaxurl,
-				data: data,
-				dataType: 'json'
-			}).done(function(d){
-				_this.removeClass( 'loading' );
-				buttons.removeClass( 'disabled' );
-				
-				alert.text( d.msg ).addClass( d.error ? 'error' : 'updated' ).show();
-				timeout = setTimeout( function() {
-					alert.hide().empty();
-				}, 5000 );
-			});
+                var data = {
+                    'action': action,
+                    'security': nonce,
+                    'scope': scope
+                };
 
-			setTimeout( function() {
-				pollingImportStatus();
-			}, 2000 );		
-		} 
 
+                $.ajax({
+                    type: "POST",
+                    url: ajaxurl,
+                    data: data,
+                    dataType: 'json'
+                }).done(function (d) {
+                    _this.removeClass('loading');
+                    buttons.removeClass('disabled');
+
+                    alert.text(d.msg).addClass(d.error ? 'error' : 'updated').show();
+                    timeout = setTimeout(function () {
+                        alert.hide().empty();
+                    }, 5000);
+                });
+
+                if (scope !== 'remove') {
+                    setTimeout(function () {
+                        pollingImportStatus();
+                    }, 2000);
+                } else {
+                    alert('Delete complete');
+                }
+
+            }
+        }
 		return false;
 	} );
 
