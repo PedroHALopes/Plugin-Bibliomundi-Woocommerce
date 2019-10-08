@@ -1,0 +1,5 @@
+[2019-10-01 08:45:06] [1569919506] Log: Purchase process: {'message': String too short for [root.customerState], minimum length is [2]}
+[2019-10-01 08:56:11] [1569920171] Log: Purchase process: {'message': String too short for [root.customerState], minimum length is [2]}
+[2019-10-02 07:03:30] [1569999810] Log: Purchase process: {'message': String too long for [root.customerState], maximum length is [2]}
+[2019-10-02 07:10:11] [1570000211] Log: Purchase process order # 10922: Done. {"code":201,"http_title":"created","message":"[{'message':'The sale (Transaction Key TRANSACTION_10922) has been added successfully'}]"}
+[2019-10-02 07:11:13] [1570000273] Log: Import process: API returns empty data.

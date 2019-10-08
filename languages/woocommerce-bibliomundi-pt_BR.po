@@ -1,0 +1,354 @@
+# Copyright (C) 2018 Bibliomundi
+# This file is distributed under the same license as the WooCommerce package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce BiblioMundi 1.1.0\n"
+"POT-Creation-Date: 2018-09-26 09:22:30+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"X-Generator: Poedit 2.1.1\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language: pt_BR\n"
+
+#: templates/page-wizard.php
+msgid "%s to learn how to set the routine."
+msgstr "%s aprender como definir a rotina."
+
+#: templates/page-wizard.php
+msgid "%s to learn where to find your credentials."
+msgstr "%s para saber onde encontrar suas credenciais."
+
+#: templates/page-wizard.php
+msgid "A total of %s eBooks were added."
+msgstr "Um total de %s eBooks foram adicionados."
+
+#: templates/page-wizard.php
+msgid "Add your seller credentials"
+msgstr "Adicione suas credenciais de vendedor"
+
+#: bibliomundi-woocommerce.php
+msgid "Already imported."
+msgstr "Já importado."
+
+#: templates/page-wizard.php
+msgid "Always keep your plugin updated."
+msgstr "Mantenha sempre seu plugin atualizado."
+
+#: templates/page-restore.php
+msgid "Attention"
+msgstr "Atenção"
+
+#: templates/page-wizard.php
+msgid "Automatic updates"
+msgstr "Atualizações automáticas"
+
+#: bibliomundi-woocommerce.php
+msgid "BiblioMundi"
+msgstr "BiblioMundi"
+
+#: templates/page-faq.php
+msgid "Browser not compatible."
+msgstr "Navegador não compatível."
+
+#: templates/page-restore.php
+msgid "By restoring the settings all products related to Bibliomundi Woocommerce will be removed and the process of configuring the plugin will be necessary again."
+msgstr "Ao restaurar as configurações todos os produtos relacionados a Bibliomundi Woocommerce serão removidos e o processo de configuração do plugin será necessário novamente."
+
+#: templates/footer.php
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: bibliomundi-woocommerce.php
+msgid "Cannot connect to the API."
+msgstr "Cannot connect to the API."
+
+#: bibliomundi-woocommerce.php
+msgid "Cannot write."
+msgstr "Não é possível gravar o arquivo."
+
+#: bibliomundi-woocommerce.php
+msgid "Cannot write to the plugin directory (%s)."
+msgstr "Não consigo escrever no diretório do plugin (%s)."
+
+#: bibliomundi-woocommerce.php
+msgid "Catalog is empty."
+msgstr "Catálogo está vazio."
+
+#: templates/page-wizard.php
+msgid "Click here"
+msgstr "Clique aqui"
+
+#: templates/page-credentials.php templates/page-wizard.php
+msgid "Client Key"
+msgstr "Chave do Cliente"
+
+#: templates/page-credentials.php templates/page-wizard.php
+msgid "Client ID"
+msgstr "ID do Cliente"
+
+#: bibliomundi-woocommerce.php
+msgid "Client ID or Client Key is empty."
+msgstr "O ID do cliente ou a chave do cliente está vazio."
+
+#: templates/footer.php bibliomundi-woocommerce.php
+msgid "Client ID or Client Key is wrong."
+msgstr "ID do cliente ou chave do cliente está errado."
+
+#: templates/page-restore.php
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: templates/page-wizard.php
+msgid "Congratulation! The plugin was installed successfully."
+msgstr "Parabéns! O plugin foi instalado com sucesso."
+
+#: templates/footer.php
+msgid "Continue import"
+msgstr "Continuar importando"
+
+#: templates/page-restore.php bibliomundi-woocommerce.php
+msgid "Credentials"
+msgstr "Credenciais"
+
+#: bibliomundi-woocommerce.php
+msgid "Credentials is valid."
+msgstr "As credenciais são válidas."
+
+#: templates/page-wizard.php
+msgid "Do you want to continue previous importing catalogs?"
+msgstr "Deseja continuar os catálogos de importação anteriores?"
+
+#: templates/footer.php
+msgid "Do you want to manually import catalogs?"
+msgstr "Você quer importar catálogos manualmente?"
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "Edit Credentials"
+msgstr "Alterar credenciais"
+
+#: bibliomundi-woocommerce.php
+msgid "Error"
+msgstr "Erro"
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "FAQ"
+msgstr "Perguntas frequentes"
+
+#: bibliomundi-woocommerce.php
+msgid "File not found."
+msgstr "Arquivo não encontrado."
+
+#: bibliomundi-woocommerce.php
+msgid "Finish"
+msgstr "Terminar"
+
+#: templates/page-wizard.php
+msgid "go to the BiblioMundi's Platform"
+msgstr "vá para a plataforma do BiblioMundi"
+
+#: templates/page-wizard.php
+msgid "However if you haven't chosen your default catalog, %s before import the catalog."
+msgstr "No entanto, se você não tiver escolhido o catálogo padrão, %s antes de importar o catálogo."
+
+#: templates/page-wizard.php
+msgid "I am already registered at BiblioMundi"
+msgstr "Eu já sou cadastrado na BiblioMundi"
+
+#: templates/page-wizard.php
+msgid "I do not sell eBooks yet."
+msgstr "Eu não vendo eBooks ainda."
+
+#: templates/page-wizard.php
+msgid "I only sell eBooks."
+msgstr "Eu só vendo eBooks."
+
+#: templates/page-wizard.php
+msgid "I sell eBooks and/or other products."
+msgstr "Eu vendo eBooks e/ou outros produtos."
+
+#: templates/page-wizard.php
+msgid "I want to register and sell eBooks"
+msgstr "Quero me registrar e vender eBooks"
+
+#: templates/page-wizard.php
+msgid "If you have already configured your settings at BiblioMundi, clique below to import your selected catalogue and start selling."
+msgstr "Se você já configurou suas configurações na BiblioMundi, clique abaixo para importar o catálogo selecionado e começar a vender."
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "Import"
+msgstr "Importar"
+
+#: templates/page-wizard.php
+msgid "Import Catalogue"
+msgstr "Catálogo de Importação"
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "Import Manual"
+msgstr "Manual de Importação"
+
+#: templates/footer.php
+msgid "Import new"
+msgstr "Importar novo"
+
+#: templates/page-wizard.php
+msgid "Import was successfully"
+msgstr "Importação foi bem sucedida"
+
+#: bibliomundi-woocommerce.php
+msgid "Invalid Credentials."
+msgstr "Credenciais inválidas."
+
+#: templates/page-wizard.php
+msgid "Let 's start selling eBooks?"
+msgstr "Vamos começar a vender eBooks?"
+
+#: templates/footer.php
+msgid "Loading."
+msgstr "Carregando."
+
+#: templates/page-import.php
+msgid "Need help setting up the import of your catalog automatically?"
+msgstr "Precisa de ajuda para configurar a importação de seu catálogo automaticamente?"
+
+#: templates/page-wizard.php
+msgid "Next"
+msgstr "Próximo"
+
+#: templates/page-import.php
+msgid "Please contact BiblioMundi at:"
+msgstr "Entre em contato com a BiblioMundi em:"
+
+#: templates/footer.php
+msgid "Please set a category."
+msgstr "Defina uma categoria."
+
+#: templates/page-wizard.php
+msgid "Previous"
+msgstr "Anterior"
+
+#: templates/page-import.php
+msgid "Product category"
+msgstr "Categoria de Produto"
+
+#: templates/page-wizard.php
+msgid "Remember to set the eBooks sales tax rules for your region (where applicable)."
+msgstr "Lembre-se de definir as regras de imposto sobre vendas de eBooks para sua região (quando aplicável)."
+
+#: bibliomundi-woocommerce.php
+msgid "Restore"
+msgstr "Restaurar"
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "Restore Configuration"
+msgstr "Restaurar Configuração"
+
+#: templates/page-woocommerce.php
+msgid "Return to Plugins"
+msgstr "Retornar para Plugins"
+
+#: templates/page-credentials.php
+msgid "Save"
+msgstr "Salve"
+
+#: bibliomundi-woocommerce.php
+msgid "Saved successfully."
+msgstr "Salvo com sucesso."
+
+#: templates/page-wizard.php
+msgid "Select dropdown"
+msgstr "Selecione o menu suspenso"
+
+#: templates/footer.php
+msgid "Server error."
+msgstr "Erro de servidor."
+
+#: templates/page-wizard.php
+msgid "Set Category where the eBooks will import to in your store."
+msgstr "Defina a categoria na qual os e-books serão importados em sua loja."
+
+#: templates/page-wizard.php
+msgid "Set Catalogue Import"
+msgstr "Definir importação de catálogo"
+
+#: templates/page-wizard.php
+msgid "Set ISBN as ID(SKU) for my products. (recommended)"
+msgstr "Definir ISBN como ID (SKU) para meus produtos. (recomendado)"
+
+#: templates/page-wizard.php
+msgid "Set Product ID Standard"
+msgstr "Definir ID do produto padrão"
+
+#: templates/page-wizard.php
+msgid "Set proprietary BiblioMundi ID as SKU."
+msgstr "Defina o ID do BiblioMundi proprietário como SKU."
+
+#: bibliomundi-woocommerce.php
+msgid "Settings"
+msgstr "Configurações"
+
+#: bibliomundi-woocommerce.php
+msgid "Sorry, but %s cannot write to the plugin directory (%s)."
+msgstr "Desculpe, mas %s não consigo escrever no diretório do plugin (%s)."
+
+#: templates/page-woocommerce.php
+msgid "Sorry, but %s requires %s to be installed and active. %s"
+msgstr "Desculpe, mas %s requer que %s esteja instalado e ativo. %s"
+
+#: templates/page-wizard.php
+msgid "The process couldn\'t be completed. It had an importation problem. Click on the following button to send the error report to the Bibliomundi\'s support team. You can also try to import the catalog again."
+msgstr "O processo não pôde ser concluído. Ele tinha um problema de importação. Clique no botão a seguir para enviar o relatório de erros para a equipe de suporte da Bibliomundi. Você também pode tentar importar o catálogo novamente."
+
+#: templates/page-wizard.php
+msgid "There is no Product category."
+msgstr "Não há categoria de produtos."
+
+#: templates/page-wizard.php
+msgid "This progress may take a few minutes."
+msgstr "Esse progresso pode demorar alguns minutos."
+
+#: templates/page-credentials.php
+msgid "To check your integration credentials, go to:"
+msgstr "Para verificar suas credenciais de integração acesse:"
+
+#: templates/page-import.php
+msgid "To filter the contents of your import, click here:"
+msgstr "Para filtrar os conteúdos da sua importação acesse aqui:"
+
+#: bibliomundi-woocommerce.php
+msgid "Tutorials"
+msgstr "Tutoriais"
+
+#: templates/page-woocommerce.php
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: templates/page-credentials.php templates/page-wizard.php
+msgid "Validate"
+msgstr "Validar"
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "Video Tutorials"
+msgstr "Tutoriais em vídeo"
+
+#: templates/page-home.php
+msgid "View FAQ"
+msgstr "Ver FAQ"
+
+#: templates/page-home.php
+msgid "Watch video"
+msgstr "Ver vídeo"
+
+#: templates/page-import.php
+msgid "You can manage %s."
+msgstr "Você pode gerenciar %s."
+
+#: templates/page-wizard.php
+msgid "You need to configure your catalogue update routine at server level."
+msgstr "Você precisa configurar sua rotina de atualização de catálogo no nível do servidor."
+
+#: templates/page-wizard.php
+msgid "Your first Import"
+msgstr "Sua primeira importação"

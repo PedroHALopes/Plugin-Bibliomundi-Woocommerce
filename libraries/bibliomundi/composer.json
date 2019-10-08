@@ -1,0 +1,15 @@
+{
+    "name": "vu",
+    "description": "eCommerce Platform for Growth (Community Edition)",
+    "type": "project",
+    "version": "1.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+	"minimum-stability": "dev",
+    "require": {
+        "magrao/client-side-api":">=1.0",
+        "magrao/bibliomundi-onix-parser":">=1.0"
+    }
+}

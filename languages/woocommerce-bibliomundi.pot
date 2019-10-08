@@ -1,0 +1,228 @@
+# Copyright (C) 2018 Bibliomundi
+# This file is distributed under the same license as the WooCommerce package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce BiblioMundi 1.1.0\n"
+"POT-Creation-Date: 2018-09-26 09:22:30+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"X-Generator: grunt-wp-i18n 0.5.4\n"
+
+#: templates/page-wizard.php
+msgid "%s to learn where to find your credentials."
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Add your seller credentials"
+msgstr ""
+
+#: bibliomundi-woocommerce.php
+msgid "BiblioMundi"
+msgstr ""
+
+#: bibliomundi-woocommerce.php
+msgid "Catalog is empty."
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Click here"
+msgstr ""
+
+#: templates/page-credentials.php templates/page-wizard.php
+msgid "Client Key"
+msgstr ""
+
+#: templates/page-credentials.php templates/page-wizard.php
+msgid "Client ID"
+msgstr ""
+
+#: bibliomundi-woocommerce.php
+msgid "Client ID or Client Key is empty."
+msgstr ""
+
+#: templates/footer.php bibliomundi-woocommerce.php
+msgid "Client ID or Client Key is wrong."
+msgstr ""
+
+#: templates/page-restore.php
+msgid "Confirm"
+msgstr ""
+
+#: templates/footer.php
+msgid "Continue import"
+msgstr ""
+
+#: bibliomundi-woocommerce.php
+msgid "Credentials"
+msgstr ""
+
+#: bibliomundi-woocommerce.php
+msgid "Credentials is valid."
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Do you want to continue previous importing catalogs?"
+msgstr ""
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "Edit Credentials"
+msgstr ""
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "FAQ"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "go to the BiblioMundi\'s Platform"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "However if you haven\'t chosen your default catalog, %s before import the catalog."
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "I am already registered at BiblioMundi"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "I do not sell eBooks yet."
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "I only sell eBooks."
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "I sell eBooks and/or other products."
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "I want to register and sell eBooks"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "If you havealready configured your settings at BiblioMundi, clique below to import your selected catalogue and start selling."
+msgstr ""
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "Import"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Import Catalogue"
+msgstr ""
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "Import Manual"
+msgstr ""
+
+#: templates/footer.php
+msgid "Import new"
+msgstr ""
+
+#: bibliomundi-woocommerce.php
+msgid "Invalid Credentials."
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Let \'s start selling eBooks?"
+msgstr ""
+
+#: templates/footer.php
+msgid "Loading."
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Next"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Previous"
+msgstr ""
+
+#: bibliomundi-woocommerce.php
+msgid "Restore"
+msgstr ""
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "Restore Configuration"
+msgstr ""
+
+#: templates/page-woocommerce.php
+msgid "Return to Plugins"
+msgstr ""
+
+#: templates/page-credentials.php
+msgid "Save"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Select dropdown"
+msgstr ""
+
+#: templates/footer.php
+msgid "Server error."
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Set Category where the eBooks will import to in your store."
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Set Catalogue Import"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Set ISBN as ID(SKU) for my products. (recommended)"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Set Product ID Standard"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Set proprietary BiblioMundi ID as SKU."
+msgstr ""
+
+#: bibliomundi-woocommerce.php
+msgid "Settings"
+msgstr ""
+
+#: templates/page-woocommerce.php
+msgid "Sorry, but %s requires %s to be installed and active. %s"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "This progress may take a few minutes."
+msgstr ""
+
+#: bibliomundi-woocommerce.php
+msgid "Tutorials"
+msgstr ""
+
+#: templates/page-woocommerce.php
+msgid "WooCommerce"
+msgstr ""
+
+#: templates/page-credentials.php templates/page-wizard.php
+msgid "Validate"
+msgstr ""
+
+#: templates/page-home.php bibliomundi-woocommerce.php
+msgid "Video Tutorials"
+msgstr ""
+
+#: templates/page-home.php
+msgid "View FAQ"
+msgstr ""
+
+#: templates/page-home.php
+msgid "Watch video"
+msgstr ""
+
+#: templates/page-wizard.php
+msgid "Your first Import"
+msgstr ""

@@ -1,0 +1,62 @@
+.bibliomundi-wrap .btn {
+	border-radius: 15px;
+	text-decoration: none;
+}
+.bibliomundi-wrap .btn + .btn {
+	margin-left: 1em;
+}
+.bibliomundi-wrap .bibliomundi-button-big {
+	max-width: 100%;
+	word-wrap: break-word;
+	white-space: normal;
+}
+.bibliomundi-wrap .bibliomundi-no-hover {
+	text-decoration: none;
+}
+.bibliomundi-wrap .form-label {
+	height: 34px;
+	line-height: 40px;
+}
+.bibliomundi-wrap .progress {
+	position: relative;
+}
+.bibliomundi-wrap #bibliomundi-bar {
+	margin-top: 1em;
+}
+.bibliomundi-wrap #bibliomundi-import-bar {
+	height: 30px;
+}
+.bibliomundi-wrap #bibliomundi-import-bar {
+	height: 30px;
+}
+.bibliomundi-wrap #bibliomundi-import-bar .progress-bar-text {
+	color: #FFF;
+	line-height: 30px;
+	position: absolute;
+}
+.bibliomundi-step .bibliomundi-step-content {
+	border: 1px solid #ebebeb;
+	padding: 2em 1em;
+}
+.bibliomundi-step .bibliomundi-step-content-body {
+	display: ineline-block;
+	margin-top: 2em;
+	width: 100%;
+}
+.bibliomundi-step .bibliomundi-step-content-body input:invalid,
+.bibliomundi-step .bibliomundi-step-content-body select:invalid {
+	border-color: red;
+	border-width: 2px;
+}
+.bibliomundi-dash {
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(-360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(-360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(-360deg); transform:rotate(-360deg); } }
